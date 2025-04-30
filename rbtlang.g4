@@ -43,7 +43,7 @@ funcGeneric
     ;
 
 conditional
-    : 'if'  object 'then' func
+    : 'if'  object 'then' expression
     ;
 
 
