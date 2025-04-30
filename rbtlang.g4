@@ -1,5 +1,9 @@
 grammar rbtlang;		
 
+prog
+    : sentence EOF
+    ;
+
 sentence
     : 
     (expression) (comma expression)*
@@ -16,7 +20,7 @@ func
     ;
 
 funcMove
-    : 'move' '(' keywords comma (Digit+) ')'
+    : 'move' '(' keywords comma (DIGIT+) ')'
     ;
 
 
@@ -25,7 +29,12 @@ keywords
     | 'down' 
     | 'left' 
     | 'right'
-    ; 
+    ;
+
+object
+    : 'obst'
+    | 'box'
+    ;
 
 funcGeneric
     : 'move'
@@ -34,7 +43,7 @@ funcGeneric
     ;
 
 conditional
-    : 'if' '(' expression ')' 'then' (expression)
+    : 'if'  object 'then' func
     ;
 
 
@@ -42,16 +51,10 @@ comma
     : ','
     ;
 
-fragment Digit
+DIGIT
     : [0-9]
     ;
-fragment UpperID
-    : [A-Z]
-    ;
 
-fragment ID 
-    : [a-z]
-    ;             // match lower-case identifiers
 WS 
     : [ \t\r\n]+ -> skip 
     ; // skip spaces, tabs, newlines
